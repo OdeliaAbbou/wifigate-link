@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Open WiFiGate</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <script>
+    function getQueryParams() {
+      const qs = location.search.replace(/^\?/, '');
+      const parts = qs ? qs.split('&') : [];
+      const out = {};
+      parts.forEach(p => {
+        const [k, v] = p.split('=');
+        if (!k) return;
+        out[decodeURIComponent(k)] = v ? decodeURIComponent(v) : '';
+      });
+      return out;
+    }
+
+    (function () {
+      const p = getQueryParams();
+      const id = p.id || p.gate || '';
+      const chip = p.chip || '';
+      const name = p.name || '';
+      const version = p.version || '';
+      const subscription = p.subscription || '';
+      const created = p.created || '';
+
+      const deep = `wifigate://gate/${encodeURIComponent(id)}?` +
+        `chip=${encodeURIComponent(chip)}` +
+        `&name=${encodeURIComponent(name)}` +
+        `&version=${encodeURIComponent(version)}` +
+        `&subscription=${encodeURIComponent(subscription)}` +
+        `&created=${encodeURIComponent(created)}`;
+
+      setTimeout(() => (window.location.href = deep), 300);
+      document.addEventListener('DOMContentLoaded', () => {
+        const el = document.getElementById('info');
+        el.innerHTML = `<p>Opening WiFiGate…</p>
+        <p>If nothing happens, <a href="${deep}">open manually</a>.</p>`;
+      });
+    })();
+  </script>
+</head>
+<body>
+  <div id="info" style="font-family:system-ui,Arial;max-width:720px;margin:48px auto;text-align:center;">
+    <p>Opening WiFiGate…</p>
+  </div>
+</body>
+</html>
