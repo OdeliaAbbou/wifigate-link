@@ -25,19 +25,32 @@
       const version = p.version || '';
       const subscription = p.subscription || '';
       const created = p.created || '';
+      const isGuest = p.isGuest || '';         
+      const expiry = p.expiry || '';          
+      const hostPhone = p.hostPhone || '';    
+
 
       const deep = `wifigate://gate/${encodeURIComponent(id)}?` +
         `chip=${encodeURIComponent(chip)}` +
         `&name=${encodeURIComponent(name)}` +
         `&version=${encodeURIComponent(version)}` +
         `&subscription=${encodeURIComponent(subscription)}` +
-        `&created=${encodeURIComponent(created)}`;
+        `&created=${encodeURIComponent(created)}`+
+          (isGuest ? `&isGuest=${encodeURIComponent(isGuest)}` : '') +
+        (expiry ? `&expiry=${encodeURIComponent(expiry)}` : '') +
+        (hostPhone ? `&hostPhone=${encodeURIComponent(hostPhone)}` : '');
 
-      setTimeout(() => (window.location.href = deep), 300);
+
+      // tente d'ouvrir l'app
+      setTimeout(() => (window.location.href = deep), 200);
+
+      // fallback visible
       document.addEventListener('DOMContentLoaded', () => {
         const el = document.getElementById('info');
-        el.innerHTML = `<p>Opening WiFiGate…</p>
-        <p>If nothing happens, <a href="${deep}">open manually</a>.</p>`;
+        el.innerHTML = `
+          <p>Opening WiFiGate…</p>
+          <p>If nothing happens, <a href="${deep}">open manually</a>.</p>
+        `;
       });
     })();
   </script>
