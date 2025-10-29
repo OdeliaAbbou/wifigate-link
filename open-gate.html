@@ -26,8 +26,12 @@
       const subscription = p.subscription || '';
       const created = p.created || '';
       const isGuest = p.isGuest || '';         
-      const expiry = p.expiry || '';          
       const hostPhone = p.hostPhone || '';    
+const guestPhone = p.guestPhone || '';
+const accessDate = p.accessDate || '';
+const accessStart = p.accessStart || '';
+const accessEnd = p.accessEnd || '';
+
 
 
       const deep = `wifigate://gate/${encodeURIComponent(id)}?` +
@@ -36,9 +40,12 @@
         `&version=${encodeURIComponent(version)}` +
         `&subscription=${encodeURIComponent(subscription)}` +
         `&created=${encodeURIComponent(created)}`+
-          (isGuest ? `&isGuest=${encodeURIComponent(isGuest)}` : '') +
-        (expiry ? `&expiry=${encodeURIComponent(expiry)}` : '') +
-        (hostPhone ? `&hostPhone=${encodeURIComponent(hostPhone)}` : '');
+  (isGuest ? `&isGuest=${encodeURIComponent(isGuest)}` : '') +
+  (hostPhone ? `&hostPhone=${encodeURIComponent(hostPhone)}` : '') +
+  (guestPhone ? `&guestPhone=${encodeURIComponent(guestPhone)}` : '') +
+  (accessDate ? `&accessDate=${encodeURIComponent(accessDate)}` : '') +
+  (accessStart ? `&accessStart=${encodeURIComponent(accessStart)}` : '') +
+  (accessEnd ? `&accessEnd=${encodeURIComponent(accessEnd)}` : '');
 
 
       // tente d'ouvrir l'app
